@@ -1,0 +1,36 @@
+<shared-loader *ngIf="hasLoaded" [serviceName]="'Nuevo usuario'" />
+
+<div class="flex flex-column" *ngIf="!hasLoaded">
+  <span class="text-lg mb-4">Resgistro</span>
+  <div>
+    <label>Usuario</label>
+    <input
+      type="text"
+      placeholder="Nombre de usuario"
+      [formControl]="usernameInput"
+      (input)="onChangeUsernameInput()"
+    />
+  </div>
+  <div>
+    <label>Nombre</label>
+    <input
+      type="text"
+      placeholder="Nombre"
+      [formControl]="nameInput"
+      (input)="onChangeNameInput()"
+    />
+  </div>
+  <div>
+    <label>Contraseña</label>
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [formControl]="passwordInput"
+      (input)="onChangePasswordInput()"
+    />
+  </div>
+  <button color="primary" (click)="onAddUser()">Ingresar</button>
+  <div class="flex justify-content-end mt-5">
+    <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<shared-loader *ngIf="hasLoaded" [serviceName]="'Login'" />
+
+<div class="flex flex-column" *ngIf="!hasLoaded">
+  <span class="text-lg mb-4">Login</span>
+  <div>
+    <label>Usuario</label>
+    <input
+      type="text"
+      [formControl]="usernameInput"
+      (input)="onChangeUsernameInput()"
+    />
+  </div>
+  <div>
+    <label>Contraseña</label>
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [formControl]="passwordInput"
+      (input)="onChangePasswordInput()"
+    />
+  </div>
+  <button color="primary" (click)="onLogin()">Ingresar</button>
+  <div class="flex justify-content-end mt-5">
+    <a routerLink="/auth/new-account">¿No tienes cuenta?</a>
+  </div>
+</div>
