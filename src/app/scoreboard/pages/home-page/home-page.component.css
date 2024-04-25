@@ -1,0 +1,133 @@
+.content-home {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.header,
+.body {
+  display: flex;
+  height: 40%;
+  justify-content: space-around;
+}
+
+.body {
+  height: 20% !important;
+  display: flex;
+  align-items: center;
+}
+
+.header span {
+  font-size: 50px !important;
+}
+
+.content-home h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.tap-to-start {
+  margin-top: 150px;
+}
+
+.tap-to-start h1 {
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #35a86b;
+}
+
+.content-home span {
+  font-size: 30px;
+  font-family: "Digital Numbers", serif;
+  color: #2fa5ff;
+}
+
+.initial-counter {
+  color: #eeff00de !important;
+}
+.counter {
+  color: #ff4242 !important;
+  font-size: 90px !important;
+}
+
+.fouls {
+  width: 30%;
+}
+.fouls h1 {
+  font-size: 20px;
+}
+.fouls span,
+.period span {
+  font-size: 50px;
+  color: #ffc800d9;
+}
+
+.period h1 {
+  font-size: 20px !important;
+  text-align: center;
+}
+.period span {
+  color: #2fa5ff !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .header,
+  .body {
+    margin-top: 30px;
+  }
+  .header span {
+    font-size: 70px !important;
+  }
+  .header h1 {
+    font-size: 40px;
+  }
+  .tap-to-start h1 {
+    font-size: 40px;
+  }
+  .fouls h1 {
+    font-size: 40px;
+  }
+  .fouls span,
+  .period span {
+    font-size: 70px;
+  }
+  .period h1 {
+    font-size: 40px !important;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .header span {
+    font-size: 90px !important;
+  }
+  .header h1 {
+    font-size: 60px;
+  }
+  .tap-to-start h1 {
+    font-size: 50px;
+  }
+  .fouls h1 {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .header span {
+    font-size: 100px !important;
+  }
+  .header h1 {
+    font-size: 70px;
+  }
+  .tap-to-start h1 {
+    font-size: 60px;
+  }
+  .fouls h1 {
+    font-size: 50px;
+  }
+  .fouls span,
+  .period span {
+    font-size: 90px;
+  }
+}
