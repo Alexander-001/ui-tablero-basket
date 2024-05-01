@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
-  selector: 'app-layout-page',
+  selector: 'scoreboard-layout-page',
   templateUrl: './layout-page.component.html',
 })
 export class LayoutPageComponent {
@@ -13,9 +13,10 @@ export class LayoutPageComponent {
     return this.authService.currentUser;
   }
 
+  // airplay
   public sidebarItems = [
-    { label: 'Listado', icon: 'label', url: './list' },
-    { label: 'Añadir', icon: 'add', url: './new-hero' },
+    { label: 'Marcador', icon: 'view_module', url: './home' },
+    { label: 'Mis Marcadores', icon: 'label', url: './my-score' },
     { label: 'Buscar', icon: 'search', url: './search' },
   ];
 
