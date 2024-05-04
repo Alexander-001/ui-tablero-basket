@@ -14,3 +14,19 @@ export interface UserService {
   message: string;
   CodeResult: string;
 }
+
+export interface Score {
+  home: number;
+  visit: number;
+  disabledClick: boolean;
+}
+
+export interface Fouls {
+  foulsHome: number;
+  foulsVisit: number;
+}
+
+export interface Timeouts {
+  timeoutsHome: number;
+  timeoutsVisit: number;
+}
