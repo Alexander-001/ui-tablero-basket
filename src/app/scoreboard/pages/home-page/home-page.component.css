@@ -1,5 +1,5 @@
 .content-home {
-  height: 100vh;
+  height: 90vh;
   align-items: center;
   justify-content: center;
 }
@@ -14,6 +14,7 @@
 .body {
   height: 20% !important;
   display: flex;
+  margin-top: 20px;
   align-items: center;
 }
 
@@ -29,14 +30,22 @@
 }
 
 .tap-to-start {
-  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35%;
 }
-
 .tap-to-start h1 {
-  margin-bottom: 30px;
+  cursor: pointer;
   font-size: 20px;
   color: #35a86b;
+
+  /*   transition: font-size 0.3s; */
 }
+
+/* .tap-to-start h1:hover {
+  font-size: 45px;
+  cursor: pointer;
+} */
 
 .content-home span {
   font-size: 30px;
@@ -72,6 +81,16 @@
   color: #2fa5ff !important;
 }
 
+.arrow-icon {
+  font-size: 40px;
+  width: 50px;
+  height: 50px;
+}
+
+.play-pause {
+  margin-top: 20px;
+}
+
 @media screen and (orientation: landscape) and (min-width: 400px) {
   .header h1 {
     font-size: 30px;
@@ -99,6 +118,15 @@
   .period {
     margin-top: 20px;
   }
+  .arrow-icon {
+    font-size: 40px;
+  }
+  .initial-counter {
+    margin-top: 0;
+  }
+  .tap-to-start {
+    margin-top: 0;
+  }
 }
 
 @media screen and (orientation: landscape) and (min-width: 700px) {
@@ -114,6 +142,9 @@
   }
   .fouls h1 {
     font-size: 30px;
+  }
+  .initial-counter {
+    margin-top: 0;
   }
 }
 
@@ -145,6 +176,9 @@
   .counter {
     font-size: 80px !important;
   }
+  .initial-counter {
+    margin-top: 0;
+  }
 }
 
 @media screen and (orientation: landscape) and (min-width: 1400px) {
@@ -154,7 +188,6 @@
   .header span {
     font-size: 90px !important;
   }
-
   .tap-to-start h1 {
     font-size: 50px;
   }
@@ -177,5 +210,14 @@
   }
   .header {
     height: 30% !important;
+  }
+  .header,
+  .body {
+    margin-top: 50px;
+  }
+  .arrow-icon {
+    font-size: 70px;
+    width: 70px;
+    height: 70px;
   }
 }
