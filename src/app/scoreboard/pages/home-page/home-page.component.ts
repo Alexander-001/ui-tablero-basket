@@ -10,6 +10,8 @@ export class HomePageComponent {
   constructor() {}
 
   public countdown: string = '00:00';
+  public minutes: number = 1;
+  public showPlayPause: boolean = false;
   public changeTitle: boolean = false;
   public alertCountdown: string = '';
   public showScoreModal: boolean = false;
@@ -28,7 +30,6 @@ export class HomePageComponent {
   }
 
   onClickBackHome() {
-    console.log('aca :!', this.score);
     this.score.home -= 1;
   }
 
@@ -61,6 +62,7 @@ export class HomePageComponent {
         this.onStop();
         this.countdown = '00:00';
       } else {
+        this.showPlayPause = true;
         const minutes: string = Math.floor(
           (distance % (1000 * 60 * 60)) / (1000 * 60)
         )
@@ -83,6 +85,7 @@ export class HomePageComponent {
     this.changeTitle = false;
     this.score.disabledClick = true;
     this.alertCountdown = '';
+    this.showPlayPause = false;
   }
 
   onClickPause() {
@@ -158,6 +161,22 @@ export class HomePageComponent {
   onClickBackPeriod() {
     if (this.period > 1) {
       this.period -= 1;
+    }
+  }
+
+  //* Click in score
+  onClickShowCloseModal(score: number) {
+    this.showScoreModal = false;
+    this.showPlayPause = false;
+    if (score) {
+      this.minutes = score;
+      if (score < 60) {
+        this.countdown = `${score}:00`;
+      } else {
+        const hours = Math.floor(score / 60);
+        const minutes = score % 60;
+        this.countdown = `${hours}:${minutes.toString().padStart(2, '0')}:00`;
+      }
     }
   }
 }

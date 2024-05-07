@@ -1,3 +1,10 @@
+<scoreboard-score-modal
+  *ngIf="showScoreModal"
+  class="score-modal"
+  [title]="'Ingresar minutos'"
+  [inputValue]="minutes"
+  (showCloseModal)="onClickShowCloseModal($event)"
+></scoreboard-score-modal>
 <div class="d-flex flex-column w-100 content-home">
   <div class="w-100 text-center header">
     <div class="d-flex flex-column">
@@ -15,13 +22,13 @@
     </div>
     <div class="d-flex flex-column tap-to-start">
       <h1 *ngIf="this.changeTitle" (click)="this.onStop()">DETENER</h1>
-      <h1 *ngIf="!this.changeTitle" (click)="this.onClickTapToStart(1)">
+      <h1 *ngIf="!this.changeTitle" (click)="this.onClickTapToStart(minutes)">
         CLIC PARA COMENZAR
       </h1>
       <span class="initial-counter" (click)="this.showModalCountdown()">{{
         this.countdown
       }}</span>
-      <div *ngIf="this.countdown !== '00:00'" class="content-arrow play-pause">
+      <div *ngIf="showPlayPause" class="content-arrow play-pause">
         <mat-icon
           *ngIf="!this.clickPause"
           class="arrow-icon"
