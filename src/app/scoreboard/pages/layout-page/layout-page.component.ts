@@ -17,7 +17,7 @@ export class LayoutPageComponent {
   public sidebarItems = [
     { label: 'Marcador', icon: 'view_module', url: './home' },
     { label: 'Mis Marcadores', icon: 'label', url: './my-score' },
-    { label: 'Buscar', icon: 'search', url: './search' },
+    { label: 'Compartir Pantalla', icon: 'airplay', url: './shared-window' },
   ];
 
   onLogout(): void {
