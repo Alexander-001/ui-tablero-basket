@@ -23,36 +23,34 @@
                   class="form-control mb-2"
                   placeholder="correo@correo.com"
                   formControlName="email"
+                  (input)="onChangeInput('email')"
                   matInput
                   required=""
                 />
+                <p class="text-danger mb-0">{{ errorsUser.email }}</p>
                 <label class="mb-2">Ingresar nombre de usuario</label>
                 <input
                   type="text"
                   class="form-control mb-2"
                   placeholder="Usuario"
                   formControlName="username"
+                  (input)="onChangeInput('username')"
                   matInput
                   required=""
                 />
+                <p class="text-danger mb-0">{{ errorsUser.username }}</p>
+
                 <label class="mb-2">Ingresar contraseña</label>
                 <input
                   type="password"
                   class="form-control"
                   placeholder="**********"
                   formControlName="password"
+                  (input)="onChangeInput('password')"
                   matInput
                   required=""
                 />
-                <label class="mb-2">Confirmar contraseña</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="**********"
-                  formControlName="confirmPassword"
-                  matInput
-                  required=""
-                />
+                <p class="text-danger mb-0">{{ errorsUser.password }}</p>
               </div>
               <div class="text-center pt-1 pb-1 d-flex flex-column">
                 <button

@@ -1,11 +1,12 @@
+export interface UserLogin {
+  email: string;
+  password: string;
+}
+
 export interface User {
   email: string;
   username: string;
   password: string;
-}
-
-export interface UserAdd extends User {
-  name: string;
 }
 
 export interface UserService {
