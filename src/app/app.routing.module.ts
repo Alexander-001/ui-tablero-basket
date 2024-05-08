@@ -21,8 +21,8 @@ const routes: Routes = [
     path: 'scoreboard',
     loadChildren: () =>
       import('./scoreboard/scoreboard.module').then((m) => m.ScoreboradModule),
-    /*     canActivate: [canActivateAuthGuard],
-    canMatch: [canMatchAuthGuard], */
+    canActivate: [canActivateAuthGuard],
+    canMatch: [canMatchAuthGuard],
   },
   {
     path: '404',

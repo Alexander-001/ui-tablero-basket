@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   login(user: User): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/${user.id}`).pipe(
+    return this.http.get<User>(`${this.baseUrl}/users/${user}`).pipe(
       tap((userService) => (this.user = userService.username)),
       tap((userService) => {
         if (userService.username !== '') {

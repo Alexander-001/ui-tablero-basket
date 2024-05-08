@@ -1,36 +1,95 @@
-<shared-loader *ngIf="hasLoaded" [serviceName]="'Nuevo usuario'" />
-
-<div class="flex flex-column" *ngIf="!hasLoaded">
-  <span class="text-lg mb-4">Resgistro</span>
-  <div>
-    <label>Usuario</label>
-    <input
-      type="text"
-      placeholder="Nombre de usuario"
-      [formControl]="usernameInput"
-      (input)="onChangeUsernameInput()"
-    />
-  </div>
-  <div>
-    <label>Nombre</label>
-    <input
-      type="text"
-      placeholder="Nombre"
-      [formControl]="nameInput"
-      (input)="onChangeNameInput()"
-    />
-  </div>
-  <div>
-    <label>Contraseña</label>
-    <input
-      type="password"
-      placeholder="Contraseña"
-      [formControl]="passwordInput"
-      (input)="onChangePasswordInput()"
-    />
-  </div>
-  <button color="primary" (click)="onAddUser()">Ingresar</button>
-  <div class="flex justify-content-end mt-5">
-    <a routerLink="/auth/login">¿Ya tienes cuenta?</a>
+<div
+  class="row d-flex justify-content-center align-items-center"
+  style="height: 80vh"
+>
+  <div class="col-xl-10">
+    <div class="card rounded-3 text-black">
+      <div class="row g-0">
+        <div class="col-lg-6">
+          <div class="card-body p-md-5 mx-md-4">
+            <div class="text-center mt-3">
+              <img
+                [src]="'assets/basketball.svg'"
+                style="width: 100px"
+                alt="logo"
+              />
+              <h4 class="mt-1 mb-5 pb-1">Scoreboard</h4>
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+              <div class="form-outline mb-4">
+                <label class="mb-2">Ingresar correo</label>
+                <input
+                  type="email"
+                  class="form-control mb-2"
+                  placeholder="correo@correo.com"
+                  formControlName="email"
+                  matInput
+                  required=""
+                />
+                <label class="mb-2">Ingresar nombre de usuario</label>
+                <input
+                  type="text"
+                  class="form-control mb-2"
+                  placeholder="Usuario"
+                  formControlName="username"
+                  matInput
+                  required=""
+                />
+                <label class="mb-2">Ingresar contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="**********"
+                  formControlName="password"
+                  matInput
+                  required=""
+                />
+                <label class="mb-2">Confirmar contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="**********"
+                  formControlName="confirmPassword"
+                  matInput
+                  required=""
+                />
+              </div>
+              <div class="text-center pt-1 pb-1 d-flex flex-column">
+                <button
+                  class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                  type="button"
+                  (click)="onSubmit()"
+                >
+                  Crear cuenta
+                </button>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-center pb-4"
+              >
+                <p class="mb-0 me-2">¿Ya tienes cuenta?</p>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="onClickLogin()"
+                >
+                  Iniciar sesión
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+          <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+            <h4 class="mb-4">We are more than just a company</h4>
+            <p class="small mb-0">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div> -->
+      </div>
+    </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { User, UserAdd } from '../../interfaces/user.interface';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -7,47 +7,26 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styles: [],
+  styleUrls: ['../login-page/login-page.component.css'],
 })
 export class RegisterPageComponent {
   constructor(private authService: AuthService, private router: Router) {}
+  private user: User = { username: '', email: '', password: '' };
 
-  private user: User = { id: '', username: '', email: '' };
+  public registerForm = new FormGroup({
+    email: new FormControl<string>(''),
+    username: new FormControl<string>(''),
+    password: new FormControl<string>(''),
+    confirmPassword: new FormControl<string>(''),
+  });
 
-  public usernameInput = new FormControl('');
-  public nameInput = new FormControl('');
-  public passwordInput = new FormControl('');
-
-  public hasLoaded: boolean = false;
-
-  onChangeUsernameInput() {
-    const value: string = this.usernameInput.value || '';
-    this.user.username = value;
-  }
-  onChangeNameInput() {
-    const value: string = this.passwordInput.value || '';
-    this.user.username = value;
+  onSubmit(): void {
+    if (this.registerForm.invalid) return;
+    const { email, username, password, confirmPassword } =
+      this.registerForm.value;
   }
 
-  onChangePasswordInput() {
-    const value: string = this.passwordInput.value || '';
-    this.user.email = value;
+  onClickLogin(): void {
+    this.router.navigate(['/auth/jahdkljlkasj']);
   }
-
-  onAddUser(): void {
-    /*  this.authService.addUser(this.user).subscribe((user) => {
-      if (!user.token) {
-        this.hasLoaded = false;
-        return;
-      }
-      this.hasLoaded = false;
-      this.router.navigate(['/']);
-    }); */
-  }
-
-  /*   showSnackbar(message: string): void {
-    this.snackbar.open(message, 'Aceptar', {
-      duration: 2500,
-    });
-  } */
 }
