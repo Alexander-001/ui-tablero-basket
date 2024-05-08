@@ -7,11 +7,12 @@ import { User } from '../../interfaces/user.interface';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
-  private user: User = { id: '1', username: '', email: '' };
+  private user: User = { email: '', username: '', password: '' };
 
   public usernameInput = new FormControl('');
   public passwordInput = new FormControl('');
@@ -38,6 +39,11 @@ export class LoginPageComponent {
       this.hasLoaded = false;
       this.router.navigate(['/']);
     });
+  }
+
+  onClickCreateAccount() {
+    console.log('aca');
+    this.router.navigate(['/auth/new-account']);
   }
 
   /* showSnackbar(message: string): void {
