@@ -49,8 +49,8 @@ export class RegisterPageComponent {
           if (errorsService.length > 0) {
             for (let i = 0; i < errorsService.length; i++) {
               const { path, msg } = errorsService[i];
-              const userService: any = this.errorsUser;
-              userService[path] = msg;
+              const errors: any = this.errorsUser;
+              errors[path] = msg;
             }
           }
         })

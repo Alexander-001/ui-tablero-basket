@@ -4,12 +4,12 @@ import { environments } from 'src/environments/environments';
 import { User } from '../../scoreboard/interfaces/scoreboard.interface';
 import { Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserService } from '../interfaces/user.interface';
+import { UserLogin, UserService } from '../interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private baseUrl: string = environments.baseURL;
-  private user?: User;
+  private user!: User;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -18,15 +18,14 @@ export class AuthService {
     return structuredClone(this.user);
   }
 
-  login(user: User): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/${user}`).pipe(
-      tap((userService) => (this.user = userService)),
-      tap((userService) => {
-        if (userService.username !== '') {
-          localStorage.setItem('token', 'klasjdlasjlkdsaj');
-        }
-      })
-    );
+  login(user: UserLogin): Observable<UserService> {
+    return this.http
+      .post<UserService>(`${this.baseUrl}/users/login`, user)
+      .pipe(
+        tap((userService) => {
+          this.user = userService.user;
+        })
+      );
   }
 
   addUser(user: User): Observable<UserService> {
@@ -42,7 +41,7 @@ export class AuthService {
   }
 
   logout() {
-    this.user = undefined;
+    this.user = { email: '', username: '', password: '' };
     localStorage.clear();
   }
 }

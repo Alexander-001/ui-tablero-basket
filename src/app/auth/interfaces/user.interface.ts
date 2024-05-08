@@ -4,6 +4,11 @@ export interface User {
   password: string;
 }
 
+export interface UserLogin {
+  email: string;
+  password: string;
+}
+
 export interface UserAdd extends User {
   name: string;
 }
@@ -19,6 +24,14 @@ export interface AddUserResponse {
   message: string;
   CodeResult: string;
   errors: object[];
+}
+
+export interface LoginUserResponse {
+  errors: object[];
+  CodeResult: string;
+  message: string;
+  token: string;
+  user: object;
 }
 
 export interface ErrorServices {

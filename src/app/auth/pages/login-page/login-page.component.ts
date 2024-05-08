@@ -1,8 +1,16 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { User } from '../../interfaces/user.interface';
+import { FormControl, FormGroup } from '@angular/forms';
+import {
+  AddUserResponse,
+  ErrorServices,
+  LoginUserResponse,
+  User,
+  UserLogin,
+} from '../../interfaces/user.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -10,45 +18,59 @@ import { User } from '../../interfaces/user.interface';
   styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {}
 
-  private user: User = { email: '', username: '', password: '' };
+  public errorsUser: UserLogin = { email: '', password: '' };
 
-  public usernameInput = new FormControl('');
-  public passwordInput = new FormControl('');
-
-  public hasLoaded: boolean = false;
-
-  onChangeUsernameInput() {
-    const value: string = this.usernameInput.value || '';
-    this.user.username = value;
-  }
-
-  onChangePasswordInput() {
-    const value: string = this.passwordInput.value || '';
-    this.user.email = value;
-  }
+  public loginForm = new FormGroup({
+    email: new FormControl<string>(''),
+    password: new FormControl<string>(''),
+  });
 
   onLogin(): void {
-    this.hasLoaded = true;
-    this.authService.login(this.user).subscribe((user) => {
-      if (!user.username) {
-        this.hasLoaded = false;
-        return;
-      }
-      this.hasLoaded = false;
-      this.router.navigate(['/']);
-    });
+    const { email, password } = this.loginForm.value;
+    const bodyParams = {
+      email: email ? email : '',
+      password: password ? password : '',
+    };
+    this.authService
+      .login(bodyParams)
+      .pipe(
+        tap((userService: any) => {
+          const errorsService: ErrorServices[] = userService.errors || [];
+          if (errorsService.length > 0) {
+            for (let i = 0; i < errorsService.length; i++) {
+              const { path, msg } = errorsService[i];
+              const errors: any = this.errorsUser;
+              errors[path] = msg;
+            }
+          }
+        })
+      )
+      .subscribe((userService: LoginUserResponse) => {
+        if (userService.message !== '') this.showSnackbar(userService.message);
+        if (userService.CodeResult === 'SUCCESS')
+          localStorage.setItem('token', userService.token);
+        this.router.navigate(['/scoreboard/home']);
+      });
+  }
+
+  onChangeInput(name: string) {
+    const userService: any = this.errorsUser;
+    userService[name] = '';
   }
 
   onClickCreateAccount() {
-    console.log('aca');
     this.router.navigate(['/auth/new-account']);
   }
 
-  /* showSnackbar(message: string): void {
-    this.snackbar.open(message, 'Aceptar', {
+  showSnackbar(message: string): void {
+    this.snackbar.open(message, 'Ok', {
       duration: 2500,
     });
-  } */
+  }
 }
