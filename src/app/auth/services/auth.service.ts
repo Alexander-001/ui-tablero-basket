@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environments } from 'src/environments/environments';
+import { environments } from 'src/environments/environments.prod';
 import { User } from '../../scoreboard/interfaces/scoreboard.interface';
 import { Observable, of, tap } from 'rxjs';
 import {
