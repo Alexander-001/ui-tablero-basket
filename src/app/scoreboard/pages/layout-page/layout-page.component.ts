@@ -10,7 +10,7 @@ import { User } from 'src/app/auth/interfaces/user.interface';
 export class LayoutPageComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
-  get user(): User | undefined {
+  get user(): string {
     return this.authService.currentUser;
   }
 

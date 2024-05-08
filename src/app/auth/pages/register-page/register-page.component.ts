@@ -21,6 +21,7 @@ export class RegisterPageComponent {
     private router: Router,
     private snackbar: MatSnackBar
   ) {}
+  public isLoading: boolean = false;
   public errorsUser: User = {
     email: '',
     username: '',
@@ -41,6 +42,7 @@ export class RegisterPageComponent {
       username: username ? username : '',
       password: password ? password : '',
     };
+    this.isLoading = true;
     this.authService
       .addUser(bodyParams)
       .pipe(
@@ -53,11 +55,13 @@ export class RegisterPageComponent {
               errors[path] = msg;
             }
           }
+          this.isLoading = false;
         })
       )
       .subscribe((userService: AddUserResponse) => {
         if (userService.message !== '') this.showSnackbar(userService.message);
         if (userService.CodeResult === 'SUCCESS') this.onClickLogin();
+        this.isLoading = false;
       });
   }
 

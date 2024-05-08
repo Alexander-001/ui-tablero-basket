@@ -15,10 +15,11 @@ const checkAuthStatus = (): boolean | Observable<boolean> => {
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
   return authService.checkAuthentication().pipe(
-    tap((isAuthenticated) => console.log(isAuthenticated)),
     tap((isAuthenticated) => {
+      console.log(isAuthenticated);
       if (!isAuthenticated) {
         router.navigate(['/auth/login']);
+        localStorage.removeItem('access_token');
       }
     })
   );
