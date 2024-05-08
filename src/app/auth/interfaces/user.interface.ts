@@ -14,3 +14,17 @@ export interface UserService {
   message: string;
   CodeResult: string;
 }
+
+export interface AddUserResponse {
+  message: string;
+  CodeResult: string;
+  errors: object[];
+}
+
+export interface ErrorServices {
+  type: string;
+  value: string;
+  msg: string;
+  path: string;
+  location: string;
+}

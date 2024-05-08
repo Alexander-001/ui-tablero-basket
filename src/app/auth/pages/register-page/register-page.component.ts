@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { User, UserAdd } from '../../interfaces/user.interface';
+import {
+  AddUserResponse,
+  ErrorServices,
+  User,
+} from '../../interfaces/user.interface';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register-page',
@@ -10,8 +16,16 @@ import { Router } from '@angular/router';
   styleUrls: ['../login-page/login-page.component.css'],
 })
 export class RegisterPageComponent {
-  constructor(private authService: AuthService, private router: Router) {}
-  private user: User = { username: '', email: '', password: '' };
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {}
+  public errorsUser: User = {
+    email: '',
+    username: '',
+    password: '',
+  };
 
   public registerForm = new FormGroup({
     email: new FormControl<string>(''),
@@ -21,12 +35,44 @@ export class RegisterPageComponent {
   });
 
   onSubmit(): void {
-    if (this.registerForm.invalid) return;
-    const { email, username, password, confirmPassword } =
-      this.registerForm.value;
+    const { email, username, password } = this.registerForm.value;
+    const bodyParams = {
+      email: email ? email : '',
+      username: username ? username : '',
+      password: password ? password : '',
+    };
+    this.authService
+      .addUser(bodyParams)
+      .pipe(
+        tap((userService: any) => {
+          const errorsService: ErrorServices[] = userService.errors || [];
+          if (errorsService.length > 0) {
+            for (let i = 0; i < errorsService.length; i++) {
+              const { path, msg } = errorsService[i];
+              const userService: any = this.errorsUser;
+              userService[path] = msg;
+            }
+          }
+        })
+      )
+      .subscribe((userService: AddUserResponse) => {
+        if (userService.message !== '') this.showSnackbar(userService.message);
+        if (userService.CodeResult === 'SUCCESS') this.onClickLogin();
+      });
+  }
+
+  onChangeInput(name: string) {
+    const userService: any = this.errorsUser;
+    userService[name] = '';
   }
 
   onClickLogin(): void {
-    this.router.navigate(['/auth/jahdkljlkasj']);
+    this.router.navigate(['/auth/login']);
+  }
+
+  showSnackbar(message: string): void {
+    this.snackbar.open(message, 'Ok', {
+      duration: 2500,
+    });
   }
 }
