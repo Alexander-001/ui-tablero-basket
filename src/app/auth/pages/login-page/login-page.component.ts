@@ -3,10 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
-  AddUserResponse,
   ErrorServices,
   LoginUserResponse,
-  User,
   UserLogin,
 } from '../../interfaces/user.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,6 +23,7 @@ export class LoginPageComponent {
   ) {}
 
   public errorsUser: UserLogin = { email: '', password: '' };
+  public isLoading: boolean = false;
 
   public loginForm = new FormGroup({
     email: new FormControl<string>(''),
@@ -37,6 +36,7 @@ export class LoginPageComponent {
       email: email ? email : '',
       password: password ? password : '',
     };
+    this.isLoading = true;
     this.authService
       .login(bodyParams)
       .pipe(
@@ -49,12 +49,14 @@ export class LoginPageComponent {
               errors[path] = msg;
             }
           }
+          this.isLoading = false;
         })
       )
       .subscribe((userService: LoginUserResponse) => {
         if (userService.message !== '') this.showSnackbar(userService.message);
         if (userService.CodeResult === 'SUCCESS')
-          localStorage.setItem('token', userService.token);
+          localStorage.setItem('access_token', userService.token);
+        this.isLoading = false;
         this.router.navigate(['/scoreboard/home']);
       });
   }
