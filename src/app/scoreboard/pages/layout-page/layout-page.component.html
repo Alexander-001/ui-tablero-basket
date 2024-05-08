@@ -22,8 +22,9 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon [fontIcon]="'menu'">menu</mat-icon>
     </button>
-    <span class="spacer"></span>
-    <span>{{ user }}</span>
+    <span style="text-align: center; width: 100%"
+      >Bienvenido {{ user?.username }}</span
+    >
     <button mat-button (click)="onLogout()">Logout</button>
   </mat-toolbar>
 

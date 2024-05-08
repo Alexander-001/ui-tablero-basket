@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,12 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
     LoginPageComponent,
     RegisterPageComponent,
   ],
-  imports: [AuthRoutingModule, CommonModule, ReactiveFormsModule, SharedModule],
+  imports: [
+    AuthRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    SharedModule,
+    MaterialModule,
+  ],
 })
 export class AuthModule {}
