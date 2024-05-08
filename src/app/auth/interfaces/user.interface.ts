@@ -41,3 +41,9 @@ export interface ErrorServices {
   path: string;
   location: string;
 }
+
+export const UserToken = {
+  user: {
+    username: '',
+  },
+};

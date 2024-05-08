@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,6 +16,15 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+        // allowedDomains: ['example.com'], // change this to match your domain
+        // disallowedRoutes: ['http://example.com/examplebadroute/'], // change this to match your disallowed routes
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

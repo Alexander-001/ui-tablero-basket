@@ -17,6 +17,20 @@ button {
 input {
   outline: none;
 }
+
+.content-login {
+  position: relative;
+}
+
+.shared-loader {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  z-index: 999;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
 @media (min-width: 768px) {
   .gradient-form {
     height: 100vh !important;
