@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environments } from 'src/environments/environments';
+import { environments } from 'src/environments/environments.prod';
 import { User } from '../../scoreboard/interfaces/scoreboard.interface';
 import { Observable, of, tap } from 'rxjs';
-import { Router } from '@angular/router';
 import { UserLogin, UserService } from '../interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +10,7 @@ export class AuthService {
   private baseUrl: string = environments.baseURL;
   private user!: User;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   get currentUser(): User | undefined {
     if (!this.user) return undefined;
