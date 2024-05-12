@@ -1,3 +1,17 @@
+.home-page {
+  position: relative;
+}
+
+.shared-loader {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  z-index: 99999999;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
 .content-home {
   height: 90vh;
   align-items: center;

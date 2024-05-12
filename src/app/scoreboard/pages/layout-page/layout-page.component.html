@@ -16,6 +16,10 @@
         <mat-icon matListItemIcon fontIcon="{{ item.icon }}"></mat-icon>
         {{ item.label }}
       </mat-list-item>
+      <mat-list-item (click)="this.onLogout()">
+        <mat-icon matListItemIcon fontIcon="exit_to_app"></mat-icon>
+        Cerrar Sesión
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-toolbar color="primary">
@@ -25,7 +29,6 @@
     <span style="text-align: center; width: 100%"
       >Bienvenido {{ user | titlecase }}</span
     >
-    <button mat-button (click)="onLogout()">Logout</button>
   </mat-toolbar>
 
   <div class="container">
