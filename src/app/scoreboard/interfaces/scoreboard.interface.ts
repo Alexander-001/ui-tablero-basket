@@ -31,3 +31,29 @@ export interface Timeouts {
   timeoutsHome: number;
   timeoutsVisit: number;
 }
+
+export interface ScoreServiceParams {
+  scoreHome: string | number;
+  scoreVisit: string | number;
+  foulsHome: string | number;
+  foulsVisit: string | number;
+  timeoutsHome: string | number;
+  timeoutsVisit: string | number;
+  period: string | number;
+  dateCreation: string | number;
+  createdBy: string | number;
+}
+
+export interface AddScoreService {
+  errors: Array<any>;
+  CodeResult: string;
+  message: string;
+}
+
+export interface ErrorServices {
+  type: string;
+  value: string;
+  msg: string;
+  path: string;
+  location: string;
+}

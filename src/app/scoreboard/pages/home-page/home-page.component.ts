@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
-import { Fouls, Score, Timeouts } from '../../interfaces/scoreboard.interface';
+import {
+  AddScoreService,
+  ErrorServices,
+  Fouls,
+  Score,
+  Timeouts,
+} from '../../interfaces/scoreboard.interface';
+import { Howl } from 'howler';
+import { ScoreService } from '../../services/score.service';
+import * as dayjs from 'dayjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'scoreboard-page-home',
@@ -7,9 +17,12 @@ import { Fouls, Score, Timeouts } from '../../interfaces/scoreboard.interface';
   styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent {
-  constructor() {}
+  constructor(
+    private scoreService: ScoreService,
+    private snackbar: MatSnackBar
+  ) {}
 
-  public countdown: string = '00:00';
+  public countdown: string = '01:00';
   public minutes: number = 1;
   public showPlayPause: boolean = false;
   public changeTitle: boolean = false;
@@ -20,8 +33,14 @@ export class HomePageComponent {
   public fouls: Fouls = { foulsHome: 0, foulsVisit: 0 };
   public timeouts: Timeouts = { timeoutsHome: 0, timeoutsVisit: 0 };
   public period: number = 1;
+  public addScoreModal: boolean = false;
+  public errorsModal: Array<string> = [];
+  public isLoading: boolean = false;
 
   private intervalId: any = null;
+  private sound = new Howl({
+    src: ['../../../../assets/basketball.mp3'],
+  });
 
   //* Header actions: Home and Away
   onClickNextHome() {
@@ -81,6 +100,7 @@ export class HomePageComponent {
 
   onStop() {
     this.clearIntervalCountdown();
+    this.showAddScoreModal();
     this.countdown = '00:00';
     this.changeTitle = false;
     this.score.disabledClick = true;
@@ -100,6 +120,46 @@ export class HomePageComponent {
       parseInt(splitCountdown[0]),
       parseInt(splitCountdown[1]) + 1
     );
+  }
+
+  showAddScoreModal() {
+    this.sound.play();
+    this.addScoreModal = true;
+  }
+
+  onClickAcceptAddScoreModal() {
+    this.isLoading = true;
+    const bodyParams = {
+      scoreHome: this.score.home,
+      scoreVisit: this.score.visit,
+      foulsHome: this.fouls.foulsHome,
+      foulsVisit: this.fouls.foulsVisit,
+      timeoutsHome: this.timeouts.timeoutsHome,
+      timeoutsVisit: this.timeouts.timeoutsVisit,
+      period: this.period,
+      dateCreation: dayjs().format('YYYY-MM-DD').toString(),
+      createdBy: 'Ignacio Tapia',
+    };
+    this.scoreService
+      .addScore(bodyParams)
+      .subscribe((userService: AddScoreService) => {
+        const errorsService: ErrorServices[] = userService.errors || [];
+        if (errorsService.length > 0) {
+          this.showSnackbar(
+            'Error al ingresar marcador, se deben ingresar todos los campos obligatorios.'
+          );
+          this.isLoading = false;
+          this.addScoreModal = false;
+          return;
+        }
+        this.showSnackbar('Marcador agregado correctamente.');
+        this.isLoading = false;
+        this.addScoreModal = false;
+      });
+  }
+
+  onClickAcceptCancelScoreModal() {
+    this.addScoreModal = !this.addScoreModal;
   }
 
   showModalCountdown() {
@@ -178,5 +238,11 @@ export class HomePageComponent {
         this.countdown = `${hours}:${minutes.toString().padStart(2, '0')}:00`;
       }
     }
+  }
+
+  showSnackbar(message: string): void {
+    this.snackbar.open(message, 'Ok', {
+      duration: 2500,
+    });
   }
 }

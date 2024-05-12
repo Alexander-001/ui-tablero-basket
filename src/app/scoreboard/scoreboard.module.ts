@@ -9,6 +9,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { MaterialModule } from '../material/material.module';
 import { ScoreModalComponent } from './components/score-modal/score-modal.component';
 import { AddSubstractArrowComponent } from './components/add-substract-arrow/add-substract-arrow.component';
+import { AddScoreModalComponent } from './components/add-score-modal/add-score-modal.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AddSubstractArrowComponent } from './components/add-substract-arrow/add
     HomePageComponent,
     ScoreModalComponent,
     AddSubstractArrowComponent,
+    AddScoreModalComponent,
   ],
   imports: [
     ScoreboardRoutingModule,
