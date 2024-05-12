@@ -91,9 +91,6 @@ export class HomePageComponent {
           .toString()
           .padStart(2, '0');
         this.countdown = `${minutes}:${seconds}`;
-        if (minutes === '00' && parseInt(seconds) <= 10) {
-          this.alertCountdown = seconds;
-        }
       }
     }, 1000);
   }
