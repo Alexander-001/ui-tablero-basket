@@ -10,12 +10,14 @@ import { MaterialModule } from '../material/material.module';
 import { ScoreModalComponent } from './components/score-modal/score-modal.component';
 import { AddSubstractArrowComponent } from './components/add-substract-arrow/add-substract-arrow.component';
 import { AddScoreModalComponent } from './components/add-score-modal/add-score-modal.component';
+import { MyScorePageComponent } from './pages/my-score-page/my-score-page.component';
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
     HomePageComponent,
     ScoreModalComponent,
+    MyScorePageComponent,
     AddSubstractArrowComponent,
     AddScoreModalComponent,
   ],
