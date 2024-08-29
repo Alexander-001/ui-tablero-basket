@@ -16,6 +16,13 @@ export interface UserService {
   CodeResult: string;
 }
 
+export interface Team {
+  name: string;
+  showInput: boolean;
+}
+
+export type TeamKey = 'visit' | 'home';
+
 export interface Score {
   home: number;
   visit: number;
@@ -50,10 +57,43 @@ export interface AddScoreService {
   message: string;
 }
 
+export interface GetScoresService {
+  message: string;
+  scores: Array<Score>;
+  CodeResult: string;
+}
+
+export interface MessageScoreService {
+  message: string;
+  CodeResult: string;
+}
+
 export interface ErrorServices {
   type: string;
   value: string;
   msg: string;
   path: string;
   location: string;
+}
+
+export interface GetScores {
+  message: string;
+  scores: GetScore[];
+  CodeResult: string;
+}
+
+export interface GetScore {
+  _id: string;
+  homeTeam: string;
+  visitTeam: string;
+  scoreHome: number;
+  scoreVisit: number;
+  foulsHome: number;
+  foulsVisit: number;
+  timeoutsHome: number;
+  timeoutsVisit: number;
+  period: number;
+  dateCreation: Date;
+  createdBy: string;
+  __v: number;
 }
