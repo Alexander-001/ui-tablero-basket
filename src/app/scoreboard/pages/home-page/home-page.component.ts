@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import * as dayjs from 'dayjs';
+import { Howl } from 'howler';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   AddScoreService,
   ErrorServices,
   Fouls,
   Score,
+  Team,
+  TeamKey,
   Timeouts,
 } from '../../interfaces/scoreboard.interface';
-import { Howl } from 'howler';
 import { ScoreService } from '../../services/score.service';
-import * as dayjs from 'dayjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'scoreboard-page-home',
@@ -19,9 +22,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomePageComponent {
   constructor(
     private scoreService: ScoreService,
+    private authService: AuthService,
     private snackbar: MatSnackBar
   ) {}
 
+  get user(): string {
+    return this.authService.currentUser;
+  }
+
+  public homeTeam: Team = { name: 'Ingresar equipo local', showInput: false };
+  public visitTeam: Team = { name: 'Ingresar equipo visita', showInput: false };
   public countdown: string = '01:00';
   public minutes: number = 1;
   public showPlayPause: boolean = false;
@@ -43,21 +53,44 @@ export class HomePageComponent {
   });
 
   //* Header actions: Home and Away
-  onClickNextHome() {
+  onClickTeam(key: TeamKey): void {
+    if (key === 'home') {
+      const { showInput } = this.homeTeam;
+      this.homeTeam.showInput = !showInput;
+    } else if (key === 'visit') {
+      const { showInput } = this.visitTeam;
+      this.visitTeam.showInput = !showInput;
+    }
+  }
+
+  onKeydownTeam(event: KeyboardEvent, key: TeamKey): void {
+    if (event.key === 'Enter') {
+      this.onChangeTeamName(event, key);
+      this.onClickTeam(key);
+    }
+  }
+
+  onChangeTeamName(event: Event, key: TeamKey): void {
+    const { value } = event.target as HTMLInputElement;
+    if (key === 'home') this.homeTeam.name = value;
+    else if (key === 'visit') this.visitTeam.name = value;
+  }
+
+  onClickNextHome(): void {
     if (this.score.disabledClick) return;
     this.score.home += 1;
   }
 
-  onClickBackHome() {
+  onClickBackHome(): void {
     this.score.home -= 1;
   }
 
-  onClickNextVisit() {
+  onClickNextVisit(): void {
     if (this.score.disabledClick) return;
     this.score.visit += 1;
   }
 
-  onClickBackVisit() {
+  onClickBackVisit(): void {
     this.score.visit -= 1;
   }
 
@@ -127,6 +160,8 @@ export class HomePageComponent {
   onClickAcceptAddScoreModal() {
     this.isLoading = true;
     const bodyParams = {
+      homeTeam: this.homeTeam.name,
+      visitTeam: this.visitTeam.name,
       scoreHome: this.score.home,
       scoreVisit: this.score.visit,
       foulsHome: this.fouls.foulsHome,
@@ -135,7 +170,7 @@ export class HomePageComponent {
       timeoutsVisit: this.timeouts.timeoutsVisit,
       period: this.period,
       dateCreation: dayjs().format('YYYY-MM-DD').toString(),
-      createdBy: 'Ignacio Tapia',
+      createdBy: this.user.replace(/\s/g, ''),
     };
     this.scoreService
       .addScore(bodyParams)

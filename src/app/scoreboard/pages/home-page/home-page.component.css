@@ -36,11 +36,20 @@
   font-size: 40px !important;
 }
 
-.content-home h1 {
+.content-home h1,
+.inputTitle {
   font-family: "Playfair Display", serif;
   font-size: 30px;
   margin-bottom: 20px;
   color: #fff;
+}
+
+.inputTitle {
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  width: 100%;
 }
 
 .tap-to-start {

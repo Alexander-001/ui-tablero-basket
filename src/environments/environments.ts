@@ -1,3 +1,3 @@
 export const environments: { baseURL: string } = {
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://ms-tablero-basket.onrender.com',
 };
